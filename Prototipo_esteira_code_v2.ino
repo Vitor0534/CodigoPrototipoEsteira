@@ -4,27 +4,28 @@
 
 #define B1                  9                 // pino que controla a base 1
 #define B2                  10                // pino que controla a base 2
-#define button_3            2                 // pino que aumenta velocidade
+#define button_3            7                 // pino que aumenta velocidade
 #define button_4            5                 // pino que reduz a velocidade
 #define button_5_Sentido    4                 // pino que configura a direção sentido horário/anti horario
 #define button_6_stop       3                 // pino que interrompe o funcionaento da esteira
-#define pulse_cont_interupt 7                 // pino que interrompe o funcionaento da esteira
+#define pulse_cont_interupt 2                 // pino que interrompe o funcionaento da esteira
 
 
 int ContadorDeVelocidade = 0;
+int velocidadeAlvo = 153;
 int razao_alteracao_velocidade = 51; //razão na qual a velocidade é incrementada ou decrementada
 int sentido_0H_1A = 0;   // 0 = horário ; 1 = antihorario
-
 Motor motorDc(3500);
-
+int RPM_Target = 0;
 
 void setup()
 {
 
   Serial.begin(9600);    // configura a comunicação serial com 9600 bps
   configuraPinModes();
-
+  configuraConstantes();
   attachInterrupt(digitalPinToInterrupt(button_6_stop),callbackPararMotor, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(pulse_cont_interupt),callback_GetPulse, CHANGE);
 
 }
 
@@ -37,12 +38,18 @@ void configuraPinModes(){
   
   pinMode(button_5_Sentido, INPUT_PULLUP);
   pinMode(button_6_stop, INPUT_PULLUP);
+
+  pinMode(pulse_cont_interupt, INPUT_PULLUP);
   
   digitalWrite(B1, LOW); //configura o pino B1 como 0
   digitalWrite(B2, LOW); //configura o pino B2 como 0
 }
 
 
+void configuraConstantes(){
+  RPM_Target = get_RPM_Target(motorDc.get_maximo_RPM(), velocidadeAlvo);
+  Serial.println("RPM_Target = " + String(RPM_Target));
+}
 
 
 
@@ -132,6 +139,9 @@ void controleDeSentido(){
   
 }
 
+int get_RPM_Target(int maximo_RPM, int pwm_Atual){
+  return round((maximo_RPM*pwm_Atual)/255);
+}
 
 void botoesDeComando(){
 
@@ -149,6 +159,7 @@ void loop(){
       controlerComandosViaSerial(sentido_0H_1A, ContadorDeVelocidade);
       delay(40);
       botoesDeComando();
+
+      speed_RPM_controller(RPM_Target);
       
-      speed_RPM_controller(motorDc.get_maximo_RPM());
 }
