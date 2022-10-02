@@ -1,5 +1,6 @@
 // Autor: Vitor de Almeida Silva, UFG/PPGEP - 2022
 
+#include "Motor.h"
 
 #define B1                  9                 // pino que controla a base 1
 #define B2                  10                // pino que controla a base 2
@@ -7,6 +8,15 @@
 #define button_4            5                 // pino que reduz a velocidade
 #define button_5_Sentido    4                 // pino que configura a direção sentido horário/anti horario
 #define button_6_stop       3                 // pino que interrompe o funcionaento da esteira
+#define pulse_cont_interupt 7                 // pino que interrompe o funcionaento da esteira
+
+
+int ContadorDeVelocidade = 0;
+int razao_alteracao_velocidade = 51; //razão na qual a velocidade é incrementada ou decrementada
+int sentido_0H_1A = 0;   // 0 = horário ; 1 = antihorario
+
+Motor motorDc(3500);
+
 
 void setup()
 {
@@ -33,8 +43,7 @@ void configuraPinModes(){
 }
 
 
-int ContadorDeVelocidade = 0;
-int sentido_0H_1A = 0;   // 0 = horário ; 1 = antihorario
+
 
 
 void pararPWM(){
@@ -88,11 +97,11 @@ void set_Velocidade(int velocidade, int sentido){
 }
 
 
-void controleDeVelocidade(String opcao){
+void controleDeVelocidade(String opcao, int razao, int sentido_0H_1A){
 
   if(opcao.equals("+")){
     if(ContadorDeVelocidade<255){
-      ContadorDeVelocidade+=51;
+      ContadorDeVelocidade += razao;
       configuraSentidoDeGiro(sentido_0H_1A, ContadorDeVelocidade);
 
       Serial.println("+Velocida = " + String(ContadorDeVelocidade));
@@ -100,7 +109,7 @@ void controleDeVelocidade(String opcao){
   }else{
     if(opcao.equals("-")){
       if(ContadorDeVelocidade>0){
-        ContadorDeVelocidade-=51;
+        ContadorDeVelocidade -= razao;
         configuraSentidoDeGiro(sentido_0H_1A, ContadorDeVelocidade);
         Serial.println("-Velocida = " + String(ContadorDeVelocidade));
       }
@@ -130,14 +139,16 @@ void botoesDeComando(){
      controleDeSentido();
   else
      if(digitalRead(button_3) == LOW)
-         controleDeVelocidade("+");
+         controleDeVelocidade("+",razao_alteracao_velocidade, sentido_0H_1A);
      else
         if(digitalRead(button_4) == LOW)
-             controleDeVelocidade("-");
+             controleDeVelocidade("-", razao_alteracao_velocidade, sentido_0H_1A);
 }
 
 void loop(){
       controlerComandosViaSerial(sentido_0H_1A, ContadorDeVelocidade);
       delay(40);
       botoesDeComando();
+      
+      speed_RPM_controller(motorDc.get_maximo_RPM());
 }
