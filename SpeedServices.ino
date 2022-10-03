@@ -14,20 +14,29 @@ void callback_GetPulse(){
 double rotateTime = 0;
 boolean getRotateTime = true;
 int  get_rpm_motor(){
+
+  double start_rotateTime;
+  double end_RotateTime;
   
   if(pulse == 1 && getRotateTime){
-    rotateTime = millis(); 
-    Serial.println("rotateTime:" + String(rotateTime));
+    
+    start_rotateTime = millis(); 
+    //Serial.println("start_rotateTime:" + String(start_rotateTime));
     can_increment = true;
     getRotateTime = false;
+    
   }else{
     if(pulse == 2){
-      rotateTime = abs((millis() - rotateTime));
+      
+      end_RotateTime = millis();
+     // Serial.println("end_RotateTime:" + String(end_RotateTime));
+      rotateTime = abs(end_RotateTime - start_rotateTime);
       Serial.println("rotateTime:" + String(rotateTime));
       pulse = 0;
       can_increment = false;
       getRotateTime = true;
       return calculaRPM(rotateTime);
+      
     }
   }
   return -1;
@@ -41,12 +50,14 @@ int calculaRPM(double rotateTime){
 void speed_RPM_controller(int RPM_Target){
   
   int RPM_Atual = get_rpm_motor();
-  Serial.println("RMP_Atual:" + String(RPM_Atual));
+  //Serial.println("RMP_Atual:" + String(RPM_Atual));
   if(RPM_Atual >= 0){
   if(RPM_Atual < RPM_Target){
+    Serial.println("RMP_Atual:" + String(RPM_Atual));
     controleDeVelocidade("+", razao_alteracao_velocidade, sentido_0H_1A);
   }else{
     if(RPM_Atual > RPM_Target){
+      Serial.println("RMP_Atual:" + String(RPM_Atual));
       controleDeVelocidade("-", razao_alteracao_velocidade, sentido_0H_1A);
     }
   }

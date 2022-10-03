@@ -25,7 +25,7 @@ void setup()
   configuraPinModes();
   configuraConstantes();
   attachInterrupt(digitalPinToInterrupt(button_6_stop),callbackPararMotor, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(pulse_cont_interupt),callback_GetPulse, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(pulse_cont_interupt),callback_GetPulse, LOW);
 
 }
 
@@ -156,10 +156,11 @@ void botoesDeComando(){
 }
 
 void loop(){
+     
       controlerComandosViaSerial(sentido_0H_1A, ContadorDeVelocidade);
       delay(40);
       botoesDeComando();
 
       speed_RPM_controller(RPM_Target);
-      
+
 }
