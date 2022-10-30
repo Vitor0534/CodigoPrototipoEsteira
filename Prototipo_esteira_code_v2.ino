@@ -15,7 +15,7 @@ int ContadorDeVelocidade = 0;
 int velocidadeAlvo = 153;
 int razao_alteracao_velocidade = 51; //razão na qual a velocidade é incrementada ou decrementada
 int sentido_0H_1A = 0;   // 0 = horário ; 1 = antihorario
-Motor motorDc(3500);
+Motor motorDc = Motor(3500);
 int RPM_Target = 0;
 
 void setup()
@@ -24,6 +24,7 @@ void setup()
   Serial.begin(9600);    // configura a comunicação serial com 9600 bps
   configuraPinModes();
   configuraConstantes();
+  
   attachInterrupt(digitalPinToInterrupt(button_6_stop),callbackPararMotor, CHANGE);
   attachInterrupt(digitalPinToInterrupt(pulse_cont_interupt),callback_GetPulse, LOW);
 
@@ -48,7 +49,7 @@ void configuraPinModes(){
 
 void configuraConstantes(){
   RPM_Target = get_RPM_Target(motorDc.get_maximo_RPM(), velocidadeAlvo);
-  Serial.println("RPM_Target = " + String(RPM_Target));
+  Serial.println("RPM motor " + String(motorDc.get_maximo_RPM()) + " | " + "RPM_Target = " + String(RPM_Target));
 }
 
 

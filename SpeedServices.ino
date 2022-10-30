@@ -43,7 +43,7 @@ int  get_rpm_motor(){
 }
 
 int calculaRPM(double rotateTime){
-  return round(60/(rotateTime/1000));
+  return round(6000/rotateTime);
 }
 
 
@@ -53,11 +53,11 @@ void speed_RPM_controller(int RPM_Target){
   //Serial.println("RMP_Atual:" + String(RPM_Atual));
   if(RPM_Atual >= 0){
   if(RPM_Atual < RPM_Target){
-    Serial.println("RMP_Atual:" + String(RPM_Atual));
+    Serial.println("RMP_Target: " + String(RPM_Target) + " | " + "RMP_Atual: " + String(RPM_Atual));
     controleDeVelocidade("+", razao_alteracao_velocidade, sentido_0H_1A);
   }else{
     if(RPM_Atual > RPM_Target){
-      Serial.println("RMP_Atual:" + String(RPM_Atual));
+      Serial.println("RMP_Target: " + String(RPM_Target) + " | " + "RMP_Atual: " + String(RPM_Atual));
       controleDeVelocidade("-", razao_alteracao_velocidade, sentido_0H_1A);
     }
   }
