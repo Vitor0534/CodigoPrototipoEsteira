@@ -11,30 +11,29 @@ void callback_GetPulse(){
 }
 
 
+double start_rotateTime = 0;
+double end_RotateTime = 0;
 double rotateTime = 0;
-boolean getRotateTime = true;
+boolean canGetStartRotateTime = true;
 int  get_rpm_motor(){
 
-  double start_rotateTime;
-  double end_RotateTime;
-  
-  if(pulse == 1 && getRotateTime){
+  if(pulse == 1 && canGetStartRotateTime){
     
     start_rotateTime = millis(); 
     //Serial.println("start_rotateTime:" + String(start_rotateTime));
     can_increment = true;
-    getRotateTime = false;
+    canGetStartRotateTime = false;
     
   }else{
     if(pulse == 2){
       
       end_RotateTime = millis();
-     // Serial.println("end_RotateTime:" + String(end_RotateTime));
+      //Serial.println("end_RotateTime:" + String(end_RotateTime));
       rotateTime = abs(end_RotateTime - start_rotateTime);
       Serial.println("rotateTime:" + String(rotateTime));
       pulse = 0;
       can_increment = false;
-      getRotateTime = true;
+      canGetStartRotateTime = true;
       return calculaRPM(rotateTime);
       
     }
@@ -43,7 +42,7 @@ int  get_rpm_motor(){
 }
 
 int calculaRPM(double rotateTime){
-  return round(6000/rotateTime);
+  return round(60000/rotateTime);
 }
 
 

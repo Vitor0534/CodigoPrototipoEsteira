@@ -8,13 +8,13 @@
 #define button_4            5                 // pino que reduz a velocidade
 #define button_5_Sentido    4                 // pino que configura a direção sentido horário/anti horario
 #define button_6_stop       3                 // pino que interrompe o funcionaento da esteira
-#define pulse_cont_interupt 2                 // pino que interrompe o funcionaento da esteira
+#define pulse_cont_interupt 2                 // pino que recebe o pulso do encoder para calculo do RPM
 
 
 int ContadorDeVelocidade = 0;
 int velocidadeAlvo = 153;
-int razao_alteracao_velocidade = 51; //razão na qual a velocidade é incrementada ou decrementada
-int sentido_0H_1A = 0;   // 0 = horário ; 1 = antihorario
+int razao_alteracao_velocidade = 51;          //razão na qual a velocidade é incrementada ou decrementada
+int sentido_0H_1A = 0;                        // 0 = horário ; 1 = antihorario
 Motor motorDc = Motor(3500);
 int RPM_Target = 0;
 
@@ -26,7 +26,7 @@ void setup()
   configuraConstantes();
   
   attachInterrupt(digitalPinToInterrupt(button_6_stop),callbackPararMotor, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(pulse_cont_interupt),callback_GetPulse, LOW);
+  attachInterrupt(digitalPinToInterrupt(pulse_cont_interupt),callback_GetPulse, FALLING);
 
 }
 
@@ -98,7 +98,7 @@ void set_Velocidade(int velocidade, int sentido){
         analogWrite(B1,velocidade); //atualiza a saída PWM do pino B1 com valor recebido
     break;
     case 1: //AntHorario
-        analogWrite(B2, ContadorDeVelocidade); //atualiza a saída PWM do pino B2 com valor recebido
+        analogWrite(B2, velocidade); //atualiza a saída PWM do pino B2 com valor recebido
         analogWrite(B1, 0); //zera B1
     break;
    }
