@@ -53,11 +53,11 @@ void speed_RPM_controller(int RPM_Target){
   if(RPM_Atual >= 0){
   if(RPM_Atual < RPM_Target){
     Serial.println("RMP_Target: " + String(RPM_Target) + " | " + "RMP_Atual: " + String(RPM_Atual));
-    controleDeVelocidade("+", razao_alteracao_velocidade, sentido_0H_1A);
+    controleDeVelocidade("+", razao_alteracao_velocidade, sentido_0H_1A_Global);
   }else{
     if(RPM_Atual > RPM_Target){
       Serial.println("RMP_Target: " + String(RPM_Target) + " | " + "RMP_Atual: " + String(RPM_Atual));
-      controleDeVelocidade("-", razao_alteracao_velocidade, sentido_0H_1A);
+      controleDeVelocidade("-", razao_alteracao_velocidade, sentido_0H_1A_Global);
     }
   }
   }

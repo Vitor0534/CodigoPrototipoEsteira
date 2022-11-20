@@ -13,8 +13,8 @@
 
 int ContadorDeVelocidade = 0;
 int velocidadeAlvo = 153;
-int razao_alteracao_velocidade = 51;          //razão na qual a velocidade é incrementada ou decrementada
-int sentido_0H_1A = 0;                        // 0 = horário ; 1 = antihorario
+int razao_alteracao_velocidade = 51;          //razão na qual a velocidade é incrementada ou decrementada default 51
+int sentido_0H_1A_Global = 0;                 // 0 = horário ; 1 = antihorario
 Motor motorDc = Motor(3500);
 int RPM_Target = 0;
 
@@ -127,21 +127,21 @@ void controleDeVelocidade(String opcao, int razao, int sentido_0H_1A){
 
 void controleDeSentido(){
 
-    if(sentido_0H_1A == 0){
-      sentido_0H_1A  = 1;
-      configuraSentidoDeGiro(sentido_0H_1A, ContadorDeVelocidade);
+    if(sentido_0H_1A_Global == 0){
+      sentido_0H_1A_Global  = 1;
+      configuraSentidoDeGiro(sentido_0H_1A_Global, ContadorDeVelocidade);
       Serial.println("motor girando no sentido antihorario");
     }
     else{
-      sentido_0H_1A  = 0;
-      configuraSentidoDeGiro(sentido_0H_1A, ContadorDeVelocidade);
+      sentido_0H_1A_Global  = 0;
+      configuraSentidoDeGiro(sentido_0H_1A_Global, ContadorDeVelocidade);
       Serial.println("Motor girando no sentido horario");
     }
   
 }
 
-int get_RPM_Target(int maximo_RPM, int pwm_Atual){
-  return round((maximo_RPM*pwm_Atual)/255);
+int get_RPM_Target(double maximo_RPM, double pwm_Atual){
+ return round((maximo_RPM * pwm_Atual)/255);
 }
 
 void botoesDeComando(){
@@ -150,15 +150,15 @@ void botoesDeComando(){
      controleDeSentido();
   else
      if(digitalRead(button_3) == LOW)
-         controleDeVelocidade("+",razao_alteracao_velocidade, sentido_0H_1A);
+         controleDeVelocidade("+",razao_alteracao_velocidade, sentido_0H_1A_Global);
      else
         if(digitalRead(button_4) == LOW)
-             controleDeVelocidade("-", razao_alteracao_velocidade, sentido_0H_1A);
+             controleDeVelocidade("-", razao_alteracao_velocidade, sentido_0H_1A_Global);
 }
 
 void loop(){
      
-      controlerComandosViaSerial(sentido_0H_1A, ContadorDeVelocidade);
+      controlerComandosViaSerial(sentido_0H_1A_Global, ContadorDeVelocidade);
       delay(40);
       botoesDeComando();
 
