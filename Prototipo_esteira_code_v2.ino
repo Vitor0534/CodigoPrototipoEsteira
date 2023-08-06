@@ -1,6 +1,6 @@
 // Autor: Vitor de Almeida Silva, UFG/PPGEP - 2022
 
-#include "Motor.h"
+#include "Mat.h"
 
 #define B1                  9                 // pino que controla a base 1
 #define B2                  10                // pino que controla a base 2
@@ -12,11 +12,13 @@
 
 
 int ContadorDeVelocidade = 0;
-int velocidadeAlvo = 153;
-int razao_alteracao_velocidade = 51;          //razão na qual a velocidade é incrementada ou decrementada default 51
+int velocidadeAlvo = 153;                     // valor está no formado de pwm (0 - 255)
+int razao_alteracao_velocidade = 51;          // razão na qual a velocidade é incrementada ou decrementada default 51
 int sentido_0H_1A_Global = 0;                 // 0 = horário ; 1 = antihorario
-Motor motorDc = Motor(3500);
+Mat matObject = Mat(500);
 int RPM_Target = 0;
+
+int encoderWheelPulseCount360Degrees = 8;     // indica quantos furos tem a roda do enconder para um giro de 360°, para calcular RPM 
 
 void setup()
 {
@@ -48,11 +50,13 @@ void configuraPinModes(){
 
 
 void configuraConstantes(){
-  RPM_Target = get_RPM_Target(motorDc.get_maximo_RPM(), velocidadeAlvo);
-  Serial.println("RPM motor " + String(motorDc.get_maximo_RPM()) + " | " + "RPM_Target = " + String(RPM_Target));
+  RPM_Target = get_RPM_Target(matObject.get_maximo_RPM(), velocidadeAlvo);
+  Serial.println("RPM motor " + String(matObject.get_maximo_RPM()) + " | " + "RPM_Target = " + String(RPM_Target));
 }
 
-
+int get_RPM_Target(double maximo_RPM, double pwm_Atual){
+ return round((maximo_RPM * pwm_Atual)/255);
+}
 
 void pararPWM(){
   digitalWrite(B1, LOW); //configura o pino B1 como 0
@@ -92,6 +96,7 @@ void configuraSentidoDeGiro(int sentido, int ContadorDeVelocidade){
 
 
 void set_Velocidade(int velocidade, int sentido){
+   velocidadeAlvo = velocidade;
    switch(sentido){
     case 0: //horario
         analogWrite(B2, 0);         //zera B2
@@ -140,10 +145,6 @@ void controleDeSentido(){
   
 }
 
-int get_RPM_Target(double maximo_RPM, double pwm_Atual){
- return round((maximo_RPM * pwm_Atual)/255);
-}
-
 void botoesDeComando(){
 
   if(digitalRead(button_5_Sentido) == LOW)
@@ -162,6 +163,6 @@ void loop(){
       delay(40);
       botoesDeComando();
 
-      speed_RPM_controller(RPM_Target);
+      speed_RPM_controller(RPM_Target, encoderWheelPulseCount360Degrees);
 
 }

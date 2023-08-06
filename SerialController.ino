@@ -6,16 +6,12 @@ void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidade){
   
   if(comando.indexOf("s") != -1){
      pararPWM();
-     //Serial.print("Comando: " + comando);
      Serial.println(">>(s) stop mat...");
-     //SerialPortFluxy();
      
   }else{
     if(comando.indexOf("r") != -1){
      configuraSentidoDeGiro(sentidoDeGiro, ContadorDeVelocidade);
-     //Serial.print("Comando: " + comando);
      Serial.println(">>(r) run mat");
-     //SerialPortFluxy();
      
     }else{
       if(comando.indexOf("v") != -1){

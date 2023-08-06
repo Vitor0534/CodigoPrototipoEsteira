@@ -5,7 +5,7 @@ boolean can_increment = false;
 
 void callback_GetPulse(){
   if((can_increment || pulse == 0) && pulse < 2){
-    Serial.println("pulse Lançado:" + String(pulse));
+    Serial.println("pulse Lançado: " + String(pulse));
     pulse++;
   }
 }
@@ -15,7 +15,7 @@ double start_rotateTime = 0;
 double end_RotateTime = 0;
 double rotateTime = 0;
 boolean canGetStartRotateTime = true;
-int  get_rpm_motor(){
+int  get_rpm_motor(int encoderWheelPulseCount360Degrees){
 
   if(pulse == 1 && canGetStartRotateTime){
     
@@ -34,7 +34,8 @@ int  get_rpm_motor(){
       pulse = 0;
       can_increment = false;
       canGetStartRotateTime = true;
-      return calculaRPM(rotateTime);
+      
+      return calculaRPM(rotateTime*encoderWheelPulseCount360Degrees);
       
     }
   }
@@ -46,10 +47,10 @@ int calculaRPM(double rotateTime){
 }
 
 
-void speed_RPM_controller(int RPM_Target){
+void speed_RPM_controller(int RPM_Target, int encoderWheelPulseCount360Degrees){
   
-  int RPM_Atual = get_rpm_motor();
-  //Serial.println("RMP_Atual:" + String(RPM_Atual));
+  int RPM_Atual = get_rpm_motor(encoderWheelPulseCount360Degrees);
+
   if(RPM_Atual >= 0){
   if(RPM_Atual < RPM_Target){
     Serial.println("RMP_Target: " + String(RPM_Target) + " | " + "RMP_Atual: " + String(RPM_Atual));
