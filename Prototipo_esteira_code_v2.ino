@@ -7,7 +7,7 @@
 #define button_3            7                 // pino que aumenta velocidade
 #define button_4            5                 // pino que reduz a velocidade
 #define button_5_Sentido    4                 // pino que configura a direção sentido horário/anti horario
-#define button_6_stop       3                 // pino que interrompe o funcionaento da esteira
+#define button_6_stop       3                 // pino que interrompe o funcionamento da esteira
 #define pulse_cont_interupt 2                 // pino que recebe o pulso do encoder para calculo do RPM
 
 
@@ -38,7 +38,7 @@ void configuraPinModes(){
   pinMode(button_4, INPUT_PULLUP);
   
   pinMode(button_5_Sentido, INPUT_PULLUP);
-  pinMode(button_6_stop, INPUT_PULLUP);
+  pinMode(button_6_stop,    INPUT_PULLUP);
 
   pinMode(pulse_cont_interupt, INPUT_PULLUP);
   
@@ -59,13 +59,13 @@ void pararPWM(){
   digitalWrite(B2, LOW); //configura o pino B2 como 0
 }
 
-boolean start_ =true;
+boolean start_ = true;
 void callbackPararMotor(){
   if(!start_){
     Serial.println("Parando movimento");
     pararPWM();
   }else{
-    start_=false;
+    start_= false;
   }
 }
 
@@ -94,12 +94,12 @@ void configuraSentidoDeGiro(int sentido, int ContadorDeVelocidade){
 void set_Velocidade(int velocidade, int sentido){
    switch(sentido){
     case 0: //horario
-        analogWrite(B2, 0); //zera B2
+        analogWrite(B2, 0);         //zera B2
         analogWrite(B1,velocidade); //atualiza a saída PWM do pino B1 com valor recebido
     break;
     case 1: //AntHorario
         analogWrite(B2, velocidade); //atualiza a saída PWM do pino B2 com valor recebido
-        analogWrite(B1, 0); //zera B1
+        analogWrite(B1, 0);          //zera B1
     break;
    }
 }
