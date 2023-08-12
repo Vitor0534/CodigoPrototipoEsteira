@@ -18,8 +18,6 @@ int sentido_0H_1A_Global = 0;                 // 0 = horário ; 1 = antihorario
 Mat matObject = Mat(500);
 int RPM_Target = 0;
 
-SerialController serialController = SerialController();
-
 int encoderWheelPulseCount360Degrees = 8;     // indica quantos furos tem a roda do enconder para um giro de 360°, para calcular RPM 
 
 void setup()
@@ -156,7 +154,7 @@ void botoesDeComando(){
 
 void loop(){
      
-      serialController.controlerComandosViaSerial(sentido_0H_1A_Global, ContadorDeVelocidade);
+      controlerComandosViaSerial(sentido_0H_1A_Global, ContadorDeVelocidade);
       
       delay(40);
       
