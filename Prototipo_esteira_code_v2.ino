@@ -58,19 +58,15 @@ int get_RPM_Target(double maximo_RPM, double pwm_Atual){
  return round((maximo_RPM * pwm_Atual)/255);
 }
 
-void pararPWM(){
-  digitalWrite(B1, LOW); //configura o pino B1 como 0
-  digitalWrite(B2, LOW); //configura o pino B2 como 0
+
+void callbackPararMotor(){
+    pararPWM();
 }
 
-boolean start_ = true;
-void callbackPararMotor(){
-  if(!start_){
-    Serial.println("Parando movimento");
-    pararPWM();
-  }else{
-    start_= false;
-  }
+void pararPWM(){
+  Serial.println("Parando movimento");
+  digitalWrite(B1, LOW); //configura o pino B1 como 0
+  digitalWrite(B2, LOW); //configura o pino B2 como 0
 }
 
 void configuraSentidoDeGiro(int sentido, int ContadorDeVelocidade){
