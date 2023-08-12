@@ -8,6 +8,7 @@ void callback_GetPulse(){
     Serial.println("pulse Lançado: " + String(pulse));
     pulse++;
   }
+  speed_RPM_controller(RPM_Target, encoderWheelPulseCount360Degrees);
 }
 
 
@@ -30,7 +31,7 @@ int  get_rpm_motor(int encoderWheelPulseCount360Degrees){
       end_RotateTime = millis();
       //Serial.println("end_RotateTime:" + String(end_RotateTime));
       rotateTime = abs(end_RotateTime - start_rotateTime);
-      Serial.println("rotateTime:" + String(rotateTime));
+      //Serial.println("rotateTime: " + String(rotateTime));
       pulse = 0;
       can_increment = false;
       canGetStartRotateTime = true;
@@ -53,13 +54,21 @@ void speed_RPM_controller(int RPM_Target, int encoderWheelPulseCount360Degrees){
 
   if(RPM_Atual >= 0){
   if(RPM_Atual < RPM_Target){
-    Serial.println("RMP_Target: " + String(RPM_Target) + " | " + "RMP_Atual: " + String(RPM_Atual));
+    
+    printRPMInformation(RPM_Target, RPM_Atual);
     controleDeVelocidade("+", razao_alteracao_velocidade, sentido_0H_1A_Global);
+    
   }else{
     if(RPM_Atual > RPM_Target){
-      Serial.println("RMP_Target: " + String(RPM_Target) + " | " + "RMP_Atual: " + String(RPM_Atual));
+      
+      printRPMInformation(RPM_Target,RPM_Atual);
       controleDeVelocidade("-", razao_alteracao_velocidade, sentido_0H_1A_Global);
+      
     }
   }
   }
+}
+
+void printRPMInformation(int RPM_Target, int RPM_Atual){
+    Serial.println("RMP_Target: " + String(RPM_Target) + " | " + "RMP_Atual: " + String(RPM_Atual));
 }

@@ -18,6 +18,8 @@ int sentido_0H_1A_Global = 0;                 // 0 = horário ; 1 = antihorario
 Mat matObject = Mat(500);
 int RPM_Target = 0;
 
+SerialController serialController = SerialController();
+
 int encoderWheelPulseCount360Degrees = 8;     // indica quantos furos tem a roda do enconder para um giro de 360°, para calcular RPM 
 
 void setup()
@@ -57,7 +59,6 @@ void configuraConstantes(){
 int get_RPM_Target(double maximo_RPM, double pwm_Atual){
  return round((maximo_RPM * pwm_Atual)/255);
 }
-
 
 void callbackPararMotor(){
     pararPWM();
@@ -155,10 +156,12 @@ void botoesDeComando(){
 
 void loop(){
      
-      controlerComandosViaSerial(sentido_0H_1A_Global, ContadorDeVelocidade);
+      serialController.controlerComandosViaSerial(sentido_0H_1A_Global, ContadorDeVelocidade);
+      
       delay(40);
+      
       botoesDeComando();
 
-      speed_RPM_controller(RPM_Target, encoderWheelPulseCount360Degrees);
+      //speed_RPM_controller(RPM_Target, encoderWheelPulseCount360Degrees);
 
 }
