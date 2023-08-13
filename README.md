@@ -22,19 +22,16 @@ Calculo RPM alvo:
 
 **Quanto a equivalência das 5 opções de velocidade e seus valores de RPM**
 
-- Velocidade 1 = 51  pwm  | 38  RPM
-- Velocidade 2 = 102 pwm  | 76  RPM
-- Velocidade 3 = 153 pwm  | 113 RPM
-- Velocidade 4 = 204 pwm  | 152 RPM
-- Velocidade 5 = 255 pwm  | 190 RPM
+- Velocidade 1 = 51  pwm  | 64  RPM
+- Velocidade 2 = 102 pwm  | 127 RPM
+- Velocidade 3 = 153 pwm  | 163 RPM
+- Velocidade 4 = 204 pwm  | 254 RPM
+- Velocidade 5 = 255 pwm  | 318 RPM
 
 
 
 //TODO:
-revisar comportamento do controle de rpm que está impreciso. verifique se tem relação com o código ou o disco do encoder
+Revisar o SerialController, infelizmente o switch case não ta funcionando, possívelmente vai ter que alterar para um ifelse
 
-- Velocidade 1 = 51  pwm  | xx  RPM
-- Velocidade 2 = 102 pwm  | xx  RPM
-- Velocidade 3 = 153 pwm  | 163 RPM
-- Velocidade 4 = 204 pwm  | xx RPM
-- Velocidade 5 = 255 pwm  | xx RPM
+Avalie quais outra configurações são necesssárias para o serialController
+

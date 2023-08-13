@@ -8,11 +8,11 @@ void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidade){
     switch(comando){
       
         
-        case 's': //stop mat
+       case 's': //stop mat
               pararPWM();
               Serial.println(">>(s) stop mat...");
             break;
-        case 'r': //run mat
+       case 'r': //run mat
               configuraSentidoDeGiro(sentidoDeGiro, ContadorDeVelocidade);
               Serial.println(">>(r) run mat");
             break;
