@@ -1,37 +1,38 @@
 
 void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidade){
-  String comando;
   
-  comando = SerialReadString();
+  String inputString = SerialReadString();
+  char comando = inputString[0];
   
-  if(comando.indexOf("s") != -1){
-     pararPWM();
-     Serial.println(">>(s) stop mat...");
-     
-  }else{
-    if(comando.indexOf("r") != -1){
-     configuraSentidoDeGiro(sentidoDeGiro, ContadorDeVelocidade);
-     Serial.println(">>(r) run mat");
-     
-    }else{
-      if(comando.indexOf("v") != -1){
-        int velocidade = splitIn2Velocidade(comando, ",");
-        set_Velocidade(velocidade, sentidoDeGiro);
-      }else{
-        if(comando.indexOf("h") != -1){
+  switch(comando){
+    case 's': //stop mat
+          pararPWM();
+          Serial.println(">>(s) stop mat...");
+        break;
+    case 'r': //run mat
+          configuraSentidoDeGiro(sentidoDeGiro, ContadorDeVelocidade);
+          Serial.println(">>(r) run mat");
+        break;
+   case 'v':  //configura velocidade
+          int velocidade = splitIn2Velocidade(inputString, ",");
+          set_Velocidade(velocidade, sentidoDeGiro);
+          Serial.println(">>(v) setar velocidade para: " + String(velocidade));
+        break;
+   case 'h':  //girar no sentido horário
           sentido_0H_1A_Global = 1;
           configuraSentidoDeGiro(sentido_0H_1A_Global, ContadorDeVelocidade);
           Serial.println(">>(h) sentido horario");
-        }else{
-          if(comando.indexOf("a") != -1){
-            sentido_0H_1A_Global = 0;
-            configuraSentidoDeGiro(sentido_0H_1A_Global, ContadorDeVelocidade);
-            Serial.println(">>(a) sentido antihorario");
-          }
-          }
-        }
-        }
-    }
+        break;
+   case 'a':  //girar no sentido antihorário
+          sentido_0H_1A_Global = 0;
+          configuraSentidoDeGiro(sentido_0H_1A_Global, ContadorDeVelocidade);
+          Serial.println(">>(a) sentido antihorario");
+        break;
+    default:
+          Serial.println("opção inesistente");
+        break;
+  }
+
  }
 
 
