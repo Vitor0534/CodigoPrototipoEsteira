@@ -28,7 +28,7 @@ void setup()
 
   Serial.begin(9600);    // configura a comunicação serial com 9600 bps
   configuraPinModes();
-  configuraConstantes();
+  configuraVariaveisDeControleDoRPM();
   
   attachInterrupt(digitalPinToInterrupt(button_6_stop),callbackPararMotor, CHANGE);
   attachInterrupt(digitalPinToInterrupt(pulse_cont_interupt),callback_GetPulse, FALLING);
@@ -52,7 +52,7 @@ void configuraPinModes(){
 }
 
 
-void configuraConstantes(){
+void configuraVariaveisDeControleDoRPM(){
   RPM_Target = get_RPM_Target(matObject.get_maximo_RPM(), velocidadeAlvo);
   Serial.println("RPM motor " + String(matObject.get_maximo_RPM()) + " | " + "RPM_Target = " + String(RPM_Target));
 }
@@ -66,7 +66,6 @@ void callbackPararMotor(){
 }
 
 void pararPWM(){
-  Serial.println("Parando movimento");
   digitalWrite(B1, LOW); //configura o pino B1 como 0
   digitalWrite(B2, LOW); //configura o pino B2 como 0
 }
@@ -93,18 +92,9 @@ void configuraSentidoDeGiro(int sentido, int ContadorDeVelocidade){
 }
 
 
-void set_Velocidade(int velocidade, int sentido){
+void setVelocidadeAlvo(int velocidade){
    velocidadeAlvo = velocidade;
-   switch(sentido){
-    case 0: //horario
-        analogWrite(B2, 0);         //zera B2
-        analogWrite(B1,velocidade); //atualiza a saída PWM do pino B1 com valor recebido
-    break;
-    case 1: //AntHorario
-        analogWrite(B2, velocidade); //atualiza a saída PWM do pino B2 com valor recebido
-        analogWrite(B1, 0);          //zera B1
-    break;
-   }
+   configuraVariaveisDeControleDoRPM();
 }
 
 
@@ -159,6 +149,7 @@ void loop(){
 
 
      controlerComandosViaSerial(sentido_0H_1A_Global, ContadorDeVelocidade);
+     
      delay(40);
      
      botoesDeComando();
