@@ -11,12 +11,15 @@
 #define pulse_cont_interupt 2                 // pino que recebe o pulso do encoder para calculo do RPM
 
 
-int ContadorDeVelocidade = 0;
-int velocidadeAlvo = 153;                     // valor está no formado de pwm (0 - 255)
-int razao_alteracao_velocidade = 51;          // razão na qual a velocidade é incrementada ou decrementada default 51
-int sentido_0H_1A_Global = 0;                 // 0 = horário ; 1 = antihorario
-Mat matObject = Mat(500);
+int ContadorDeVelocidade       = 0;
+int velocidadeAlvo             = 153;         // valor está no formado de pwm (0 - 255)
+int razao_alteracao_velocidade = 5;           // razão na qual a velocidade é incrementada ou decrementada default 51
+int sentido_0H_1A_Global       = 0;           // 0 = horário ; 1 = antihorario
+
+Mat matObject                  = Mat(318);
 int RPM_Target = 0;
+int RPM_Atual_Global  = 0;
+volatile bool podePrintarRPM = false;
 
 int encoderWheelPulseCount360Degrees = 8;     // indica quantos furos tem a roda do enconder para um giro de 360°, para calcular RPM 
 
@@ -59,7 +62,7 @@ int get_RPM_Target(double maximo_RPM, double pwm_Atual){
 }
 
 void callbackPararMotor(){
-    pararPWM();
+   pararPWM();
 }
 
 void pararPWM(){
@@ -153,13 +156,16 @@ void botoesDeComando(){
 }
 
 void loop(){
-     
-      controlerComandosViaSerial(sentido_0H_1A_Global, ContadorDeVelocidade);
-      
-      delay(40);
-      
-      botoesDeComando();
 
-      //speed_RPM_controller(RPM_Target, encoderWheelPulseCount360Degrees);
+
+     controlerComandosViaSerial(sentido_0H_1A_Global, ContadorDeVelocidade);
+     delay(40);
+     
+     botoesDeComando();
+  
+     if(podePrintarRPM && RPM_Atual_Global > 0){
+         printRPMInformation(RPM_Target, RPM_Atual_Global);
+         podePrintarRPM = false;
+     }
 
 }

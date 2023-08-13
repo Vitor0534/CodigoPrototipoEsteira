@@ -32,3 +32,9 @@ Calculo RPM alvo:
 
 //TODO:
 revisar comportamento do controle de rpm que está impreciso. verifique se tem relação com o código ou o disco do encoder
+
+- Velocidade 1 = 51  pwm  | xx  RPM
+- Velocidade 2 = 102 pwm  | xx  RPM
+- Velocidade 3 = 153 pwm  | 163 RPM
+- Velocidade 4 = 204 pwm  | xx RPM
+- Velocidade 5 = 255 pwm  | xx RPM

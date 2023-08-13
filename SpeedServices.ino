@@ -3,12 +3,14 @@ volatile int pulse = 0;
 boolean can_increment = false;
 
 
+
 void callback_GetPulse(){
   if((can_increment || pulse == 0) && pulse < 2){
-    Serial.println("pulse Lançado: " + String(pulse));
+    //Serial.println("pulse Lançado: " + String(pulse));
     pulse++;
   }
   speed_RPM_controller(RPM_Target, encoderWheelPulseCount360Degrees);
+  podePrintarRPM = true;
 }
 
 
@@ -50,18 +52,14 @@ int calculaRPM(double rotateTime){
 
 void speed_RPM_controller(int RPM_Target, int encoderWheelPulseCount360Degrees){
   
-  int RPM_Atual = get_rpm_motor(encoderWheelPulseCount360Degrees);
+  RPM_Atual_Global = get_rpm_motor(encoderWheelPulseCount360Degrees);
 
-  if(RPM_Atual >= 0){
-  if(RPM_Atual < RPM_Target){
-    
-    printRPMInformation(RPM_Target, RPM_Atual);
+  if(RPM_Atual_Global >= 0){
+  if(RPM_Atual_Global < RPM_Target){
     controleDeVelocidade("+", razao_alteracao_velocidade, sentido_0H_1A_Global);
     
   }else{
-    if(RPM_Atual > RPM_Target){
-      
-      printRPMInformation(RPM_Target,RPM_Atual);
+    if(RPM_Atual_Global > RPM_Target){
       controleDeVelocidade("-", razao_alteracao_velocidade, sentido_0H_1A_Global);
       
     }
