@@ -2,12 +2,10 @@
 void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidade){
     
   String inputString = SerialReadString();
-  Serial.println(">> " + inputString);
   char comando = inputString[0];
   
     switch(comando){
       
-        
        case 's': //stop mat
               pararPWM();
               Serial.println(">>(s) stop mat...");
@@ -16,10 +14,11 @@ void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidade){
               configuraSentidoDeGiro(sentidoDeGiro, ContadorDeVelocidade);
               Serial.println(">>(r) run mat");
             break;
-       case 'v':  //configura velocidade
-              int velocidade = splitIn2ComandWithNumber(inputString, ",");
+       case 'v':  //setup speed
+              int velocidade;
+              velocidade = splitIn2ComandWithNumber(inputString, ",");
               setVelocidadeAlvo(velocidade);
-              Serial.println(">>(v) setar velocidade para: " + String(velocidade));
+              Serial.println(">>(v) velocidade alvo setada para: " + String(velocidade) + " pwm");
             break;
        case 'h':  //girar no sentido horário
               sentido_0H_1A_Global = 1;
@@ -33,8 +32,10 @@ void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidade){
             break;
        case 'c':  //altera a razão de decremento/incremento do RPM
        
-              int novaRazao = splitIn2ComandWithNumber(inputString, ",");
-              if(255%novaRazao){
+              int novaRazao;
+              novaRazao = splitIn2ComandWithNumber(inputString, ",");
+              
+              if(!(255%novaRazao)){
                 
                 razao_alteracao_velocidade = novaRazao;
                 
@@ -43,6 +44,19 @@ void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidade){
               }else{
                 Serial.println(">>(c) Erro: a razao de alteraçao da velocidade precisa ser multiplo de 255");
               }
+            break;
+        case 'm':
+        
+              int newMaxMatRPM;
+              newMaxMatRPM = splitIn2ComandWithNumber(inputString, ",");
+              matObject.setMaxRPM(newMaxMatRPM);
+              configuraVariaveisDeControleDoRPM();
+
+              Serial.println(">>(c) RPM máximo da esteira alterado para: " + String(newMaxMatRPM));
+              
+            break;
+        case 0: //comando vazio ASCII(0 == null)
+              return;
             break;
         default:
               Serial.println("opção inesistente");
@@ -55,10 +69,10 @@ void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidade){
 
 String SerialReadString(){
   String dado = "";
-  String aux;
+  String caracter;
   while(Serial.available() > 0){
-    aux = Serial.readString();
-    dado += aux;
+    caracter = Serial.readString();
+    dado += caracter;
   }
   return dado;
 }

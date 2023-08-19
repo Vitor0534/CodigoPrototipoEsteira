@@ -1,12 +1,16 @@
 
 class Mat{
-  int maximo_RPM;
+  int maximoRPM;
   
   public:
   Mat(int maximo_RPM){
-    this->maximo_RPM = maximo_RPM;
+    this->maximoRPM = maximo_RPM;
   }
-  int get_maximo_RPM(){
-    return maximo_RPM;
+  int getMaxRPM(){
+    return maximoRPM;
+  }
+
+  void setMaxRPM(int maxRPM){
+    this->maximoRPM = maxRPM;
   }
 };

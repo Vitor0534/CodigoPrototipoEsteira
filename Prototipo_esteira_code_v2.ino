@@ -13,13 +13,13 @@
 
 int ContadorDeVelocidade       = 0;
 int velocidadeAlvo             = 153;         // valor está no formado de pwm (0 - 255)
-int razao_alteracao_velocidade = 5;           // razão na qual a velocidade é incrementada ou decrementada default 51
+int razao_alteracao_velocidade = 51;          // razão na qual a velocidade é incrementada ou decrementada default 51
 int sentido_0H_1A_Global       = 0;           // 0 = horário ; 1 = antihorario
 
-Mat matObject                  = Mat(318);
+Mat matObject                  = Mat(318);    // informa o RPM máximo da esteira default 318
 int RPM_Target = 0;
 int RPM_Atual_Global  = 0;
-volatile bool podePrintarRPM = false;
+volatile bool podePrintarRPM   = false;
 
 int encoderWheelPulseCount360Degrees = 8;     // indica quantos furos tem a roda do enconder para um giro de 360°, para calcular RPM 
 
@@ -53,8 +53,8 @@ void configuraPinModes(){
 
 
 void configuraVariaveisDeControleDoRPM(){
-  RPM_Target = get_RPM_Target(matObject.get_maximo_RPM(), velocidadeAlvo);
-  Serial.println("RPM motor " + String(matObject.get_maximo_RPM()) + " | " + "RPM_Target = " + String(RPM_Target));
+  RPM_Target = get_RPM_Target(matObject.getMaxRPM(), velocidadeAlvo);
+  Serial.println("Maximum RPM mat = " + String(matObject.getMaxRPM()) + " | " + "RPM_Target = " + String(RPM_Target));
 }
 
 int get_RPM_Target(double maximo_RPM, double pwm_Atual){

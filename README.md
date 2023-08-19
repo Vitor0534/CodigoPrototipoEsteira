@@ -31,7 +31,5 @@ Calculo RPM alvo:
 
 
 //TODO:
-Revisar o SerialController, infelizmente o switch case não ta funcionando, possívelmente vai ter que alterar para um ifelse
-
-Avalie quais outra configurações são necesssárias para o serialController
+isolar os trechos de código que recebem comandos do painel de controle em outro arquivo
 
