@@ -30,7 +30,7 @@ void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidade){
               configuraSentidoDeGiro(sentido_0H_1A_Global, ContadorDeVelocidade);
               Serial.println(">>(a) sentido antihorario");
             break;
-       case 'c':  //altera a razão de decremento/incremento do RPM
+       case 'c':  //altera a razão de decremento/incremento do PWM
        
               int novaRazao;
               novaRazao = splitIn2ComandWithNumber(inputString, ",");
@@ -45,7 +45,7 @@ void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidade){
                 Serial.println(">>(c) Erro: a razao de alteraçao da velocidade precisa ser multiplo de 255");
               }
             break;
-        case 'm':
+        case 'm': //altera o rpm máximo da esteira e recalcula o rpm alvo
         
               int newMaxMatRPM;
               newMaxMatRPM = splitIn2ComandWithNumber(inputString, ",");
