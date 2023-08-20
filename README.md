@@ -47,5 +47,5 @@ Ainda que seja possível configurar qualquer RPM, são mais utilizados 5 opçõe
 
 
 //TODO:
-isolar os trechos de código que recebem comandos do painel de controle em outro arquivo
+
 

@@ -1,5 +1,5 @@
 
-void veirficaBotoesControlPanel(){
+void verificaBotoesControlPanel(){
 
   if(digitalRead(button_5_Sentido) == LOW)
      controleDeSentido();
