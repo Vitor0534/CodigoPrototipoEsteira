@@ -70,3 +70,7 @@ void speed_RPM_controller(int RPM_Target, int encoderWheelPulseCount360Degrees){
 void printRPMInformation(int RPM_Target, int RPM_Atual){
     Serial.println("RMP_Target: " + String(RPM_Target) + " | " + "RMP_Atual: " + String(RPM_Atual));
 }
+
+int get_RPM_Target(double maximo_RPM, double pwm_Atual){
+ return round((maximo_RPM * pwm_Atual)/255);
+}
