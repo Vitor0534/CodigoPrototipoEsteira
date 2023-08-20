@@ -11,7 +11,7 @@
 #define pulse_cont_interupt 2                 // pino que recebe o pulso do encoder para calculo do RPM
 
 
-int ContadorDeVelocidade       = 0;
+int ContadorDeVelocidadeGlobal = 0;
 int velocidadeAlvo             = 153;         // valor está no formado de pwm (0 - 255)
 int razao_alteracao_velocidade = 51;          // razão na qual a velocidade é incrementada ou decrementada default 51
 int sentido_0H_1A_Global       = 0;           // 0 = horário ; 1 = antihorario
@@ -61,7 +61,7 @@ void configuraVariaveisDeControleDoRPM(){
 void loop(){
 
 
-     controlerComandosViaSerial(sentido_0H_1A_Global, ContadorDeVelocidade);
+     controlerComandosViaSerial(sentido_0H_1A_Global, ContadorDeVelocidadeGlobal);
      
      delay(40);
      

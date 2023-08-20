@@ -47,5 +47,5 @@ Ainda que seja possível configurar qualquer RPM, são mais utilizados 5 opçõe
 
 
 //TODO:
-
+Alterar o comportamente de aumento e redução da velocidade do painel físico, para que utilize a função setVelocidade e altere o algo do PID
 

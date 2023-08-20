@@ -3,36 +3,44 @@
 void controleDeVelocidade(String opcao, int razao, int sentido_0H_1A){
 
   if(opcao.equals("+")){
-    if(ContadorDeVelocidade<255){
-      ContadorDeVelocidade += razao;
-      configuraSentidoDeGiro(sentido_0H_1A, ContadorDeVelocidade);
-
-      Serial.println("+Velocida = " + String(ContadorDeVelocidade));
-    }
+    
+      ContadorDeVelocidadeGlobal += razao;
+    
   }else{
-    if(opcao.equals("-")){
-      if(ContadorDeVelocidade>0){
-        ContadorDeVelocidade -= razao;
-        configuraSentidoDeGiro(sentido_0H_1A, ContadorDeVelocidade);
-        Serial.println("-Velocida = " + String(ContadorDeVelocidade));
-      }
-    }
-  }
+    
+      ContadorDeVelocidadeGlobal -= razao;
+   }
+   
+   ContadorDeVelocidadeGlobal = validaContadorDeVelocidade(ContadorDeVelocidadeGlobal);
+   
+   configuraSentidoDeGiro(sentido_0H_1A, ContadorDeVelocidadeGlobal);
+   serialPrintVelocidade(opcao, ContadorDeVelocidadeGlobal);
+   
 }
 
 
+int validaContadorDeVelocidade(int ContadorDeVelocidade){
+  
+  if(ContadorDeVelocidade > 255){
+    return 255;
+  }else{
+    if(ContadorDeVelocidade < 0){
+      return 0;
+    }
+  }
+ 
+  return ContadorDeVelocidade;
+}
+
 void controleDeSentido(){
 
-    if(sentido_0H_1A_Global == 0){
-      sentido_0H_1A_Global  = 1;
-      configuraSentidoDeGiro(sentido_0H_1A_Global, ContadorDeVelocidade);
-      Serial.println("motor girando no sentido antihorario");
-    }
-    else{
-      sentido_0H_1A_Global  = 0;
-      configuraSentidoDeGiro(sentido_0H_1A_Global, ContadorDeVelocidade);
-      Serial.println("Motor girando no sentido horario");
-    }
+
+    sentido_0H_1A_Global  = !sentido_0H_1A_Global;
+    
+    configuraSentidoDeGiro(sentido_0H_1A_Global, ContadorDeVelocidadeGlobal);
+
+    Serial.print("motor girando no sentido");
+    Serial.println(sentido_0H_1A_Global ? " horário" : " ante horario");
   
 }
 
@@ -68,4 +76,8 @@ void setVelocidadeAlvo(int velocidade){
 void pararPWM(){
   digitalWrite(B1, LOW); //configura o pino B1 como 0
   digitalWrite(B2, LOW); //configura o pino B2 como 0
+}
+
+void serialPrintVelocidade(String operacao, int ContadorDeVelocidade){
+  Serial.println(operacao + "Velocida = " + String(ContadorDeVelocidade));
 }

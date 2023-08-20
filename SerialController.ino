@@ -1,5 +1,5 @@
 
-void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidade){
+void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidadeLocal){
     
   String inputString = SerialReadString();
   char comando = inputString[0];
@@ -11,7 +11,8 @@ void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidade){
               Serial.println(">>(s) stop mat...");
             break;
        case 'r': //run mat
-              configuraSentidoDeGiro(sentidoDeGiro, ContadorDeVelocidade);
+              ContadorDeVelocidadeGlobal = velocidadeAlvo;
+              configuraSentidoDeGiro(sentidoDeGiro, 255);
               Serial.println(">>(r) run mat");
             break;
        case 'v':  //setup speed
@@ -22,12 +23,12 @@ void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidade){
             break;
        case 'h':  //girar no sentido horário
               sentido_0H_1A_Global = 1;
-              configuraSentidoDeGiro(sentido_0H_1A_Global, ContadorDeVelocidade);
+              configuraSentidoDeGiro(sentido_0H_1A_Global, ContadorDeVelocidadeLocal);
               Serial.println(">>(h) sentido horario");
             break;
        case 'a':  //girar no sentido antihorário
               sentido_0H_1A_Global = 0;
-              configuraSentidoDeGiro(sentido_0H_1A_Global, ContadorDeVelocidade);
+              configuraSentidoDeGiro(sentido_0H_1A_Global, ContadorDeVelocidadeLocal);
               Serial.println(">>(a) sentido antihorario");
             break;
        case 'c':  //altera a razão de decremento/incremento do PWM
