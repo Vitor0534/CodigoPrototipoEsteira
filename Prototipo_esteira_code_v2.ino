@@ -53,8 +53,12 @@ void configuraPinModes(){
 
 
 void configuraVariaveisDeControleDoRPM(){
+  
   RPM_Target = get_RPM_Target(matObject.getMaxRPM(), velocidadeAlvo);
-  Serial.println("Maximum RPM mat = " + String(matObject.getMaxRPM()) + " | " + "RPM_Target = " + String(RPM_Target));
+  
+  Serial.println("Maximum RPM mat = " + String(matObject.getMaxRPM()) + 
+                 " | RPM_Target = " + String(RPM_Target)              +
+                 " | Razão = " + String(razao_alteracao_velocidade));
 }
 
 

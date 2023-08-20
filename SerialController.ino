@@ -12,7 +12,7 @@ void controlerComandosViaSerial(int sentidoDeGiro, int ContadorDeVelocidadeLocal
             break;
        case 'r': //run mat
               ContadorDeVelocidadeGlobal = velocidadeAlvo;
-              configuraSentidoDeGiro(sentidoDeGiro, 255);
+              configuraSentidoDeGiro(sentidoDeGiro, ContadorDeVelocidadeGlobal);
               Serial.println(">>(r) run mat");
             break;
        case 'v':  //setup speed
