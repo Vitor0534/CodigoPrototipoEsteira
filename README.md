@@ -1,4 +1,5 @@
 
+
 # Código Protótipo de Esteira
 
 ### Autor: Vitor de Almeida Silva, UFG/PPGEP - 2022
@@ -8,6 +9,8 @@
 O presente repositório contem o código em Arduíno que realiza o controle de uma esteira. O equipamento é usado no experimento de medida de bagagens aeroportuárias com sensor kinect. 
 
 O sistema completo consiste em duas partes, a esteira que movimenta a bagagens abaixo do sensor e o software que coleta os dados da bagagem e realiza as medidas, este, implementado em Matlab 2020.
+
+Para acessar o repositório do código do que controle o sensor [clique aqui](https://github.com/Vitor0534/Get_obj_dimensions_Kinect/tree/feat_Interface)
 
 
 ### Funcionalidades
@@ -36,8 +39,8 @@ O sistema completo consiste em duas partes, a esteira que movimenta a bagagens a
 	* RPM_Atual = ( 60000 / (TempoEntreDoisPulsos * QuantidadeDePulsosPara360°DoEncoder ) )
 
 
-**Quanto a equivalência das 5 opções de velocidade e seus valores de RPM**
-Ainda que seja possível configurar qualquer RPM, são mais utilizados 5 opções, a seguir as velocidades e seus respectivos valores de RPM:
+**As 5 principais opções de velocidade e seus valores de RPM**
+Ainda que seja possível configurar qualquer RPM, existem 5 opções default, a seguir as velocidades e seus respectivos valores de RPM:
 - Velocidade 1 = 51  pwm  | 64  RPM
 - Velocidade 2 = 102 pwm  | 127 RPM
 - Velocidade 3 = 153 pwm  | 163 RPM
@@ -47,5 +50,5 @@ Ainda que seja possível configurar qualquer RPM, são mais utilizados 5 opçõe
 
 
 //TODO:
-Alterar o comportamente de aumento e redução da velocidade do painel físico, para que utilize a função setVelocidade e altere o algo do PID
+Alterar o comportamente de aumento e redução da velocidade do painel físico, para que utilize a função setVelocidade e altere o alvo do PID
 
