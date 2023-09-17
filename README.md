@@ -14,7 +14,7 @@ Para acessar o repositório do código do que controle o sensor [clique aqui](ht
 
 
 ### Funcionalidades
-* **Controle PID:** foi implementado um controlador PID utilizando interrupção e encoder para controle mais preciso do RPM da esteira. É possível configurar o RPM alvo e o PID adequa a velocidade alterando o PWM nos pinos devidos;
+* **Controle feedback em malha Fechada:** foi implementado um controlador feedback em malha fechada utilizando interrupção e encoder para controle mais preciso do RPM da esteira. É possível configurar o RPM alvo e o controlador adequa a velocidade alterando o PWM nos pinos devidos;
 * **Painel de Controle:** painel físico com quatro botões para configuração da velocidade, sentido de giro e parada da esteira;
 * **Serial Controller:** modulo que recebe comandos vindos da porta serial para controle/configuração da esteira em tempo de execução. Utilizado na integração da esteira com o software central de medida de bagagens, permitindo configurações com os seguintes comandos:
 	* Comando 's': para a esteira;
@@ -23,7 +23,7 @@ Para acessar o repositório do código do que controle o sensor [clique aqui](ht
 		* Ex. >> 'v,150';
 	* Comando 'h': altera o sentido de giro para horário;
 	* Comando 'a': altera o sentido de giro para anti horário;
-	* Comando 'c,razao': altera a razão de decremento/incremento do PWM. Quanto mais alto, maior a reação do PID as alterações e menor a precisão para velocidade alvo. A razão precisa ser multiplo de 255 com conta dos limites do pwm:
+	* Comando 'c,razao': altera a razão de decremento/incremento do PWM. Quanto mais alto, maior a reação do controlador feedback as alterações e menor a precisão para velocidade alvo. A razão precisa ser multiplo de 255 com conta dos limites do pwm:
 		* Ex. >>"C,15"
 	* Comando 'm,RPMmaximo': altera o rpm máximo da esteira e recalcula o rpm alvo.
 
@@ -50,5 +50,5 @@ Ainda que seja possível configurar qualquer RPM, existem 5 opções default, a 
 
 
 //TODO:
-Alterar o comportamente de aumento e redução da velocidade do painel físico, para que utilize a função setVelocidade e altere o alvo do PID
+Alterar o comportamente de aumento e redução da velocidade do painel físico, para que utilize a função setVelocidade e altere o alvo do Controlador feedback
 

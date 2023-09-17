@@ -71,9 +71,9 @@ void loop(){
      
      verificaBotoesControlPanel();
   
-     if(podePrintarRPM && RPM_Atual_Global > 0){
-         printRPMInformation(RPM_Target, RPM_Atual_Global);
-         podePrintarRPM = false;
-     }
+//     if(podePrintarRPM && RPM_Atual_Global > 0){
+//         printRPMInformation(RPM_Target, RPM_Atual_Global);
+//         podePrintarRPM = false;
+//     }
 
 }

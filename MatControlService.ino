@@ -14,7 +14,7 @@ void controleDeVelocidade(String opcao, int razao, int sentido_0H_1A){
    ContadorDeVelocidadeGlobal = validaContadorDeVelocidade(ContadorDeVelocidadeGlobal);
    
    configuraSentidoDeGiro(sentido_0H_1A, ContadorDeVelocidadeGlobal);
-   serialPrintVelocidade(opcao, ContadorDeVelocidadeGlobal);
+   // serialPrintVelocidade(opcao, ContadorDeVelocidadeGlobal);
    
 }
 
