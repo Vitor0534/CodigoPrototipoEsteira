@@ -47,8 +47,3 @@ Ainda que seja possível configurar qualquer RPM, existem 5 opções default, a 
 - Velocidade 4 = 204 pwm  | 254 RPM
 - Velocidade 5 = 255 pwm  | 318 RPM
 
-
-
-//TODO:
-Alterar o comportamente de aumento e redução da velocidade do painel físico, para que utilize a função setVelocidade e altere o alvo do Controlador feedback
-
