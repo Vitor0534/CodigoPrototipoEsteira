@@ -8,7 +8,7 @@ O presente repositório contem o código em Arduíno que realiza o controle de u
 
 O sistema completo consiste em duas partes, a esteira que movimenta a bagagem abaixo do sensor e o software que coleta os dados e realiza as medidas, este, implementado em Matlab 2020. 
 
-Para acessar o repositório do código que controla o sensor [clique aqui](https://github.com/Vitor0534/Get_obj_dimensions_Kinect/tree/feat_Interface)
+Para acessar o repositório do código que controla o sensor [clique aqui](https://github.com/Vitor0534/Get_obj_dimensions_Kinect/tree/master)
 
 ### Como executar o sistema?
 
