@@ -26,7 +26,7 @@ O circuito da aplicação foi simulado utilizando o [Proteus](https://www.labcen
 
 ### Protótipo da esteira completo
 
-A seguinte imagem mostra a estrutura completa apenas da esteira, é possível notar a presença no sensor kinect v2 na haste de fixação.
+A seguinte imagem mostra a estrutura completa apenas da esteira, é possível notar a presença do sensor kinect v2 na haste de fixação.
 
 ![prototipoEsteira](./Resources/prototipoEsteiraV5_.png)
 
