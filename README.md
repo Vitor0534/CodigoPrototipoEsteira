@@ -1,16 +1,34 @@
+# Código do protótipo de esteira para sistema de medida de bagagens
 
-
-# Código Protótipo de Esteira
-
-### Autor: Vitor de Almeida Silva, UFG/PPGEP - 2022
+### Autor: Vitor de Almeida Silva, UFG/PPGEP - 2023
 
 ### Breve explicação
 
 O presente repositório contem o código em Arduíno que realiza o controle de uma esteira. O equipamento é usado no experimento de medida de bagagens aeroportuárias com sensor kinect. 
 
-O sistema completo consiste em duas partes, a esteira que movimenta a bagagens abaixo do sensor e o software que coleta os dados da bagagem e realiza as medidas, este, implementado em Matlab 2020.
+O sistema completo consiste em duas partes, a esteira que movimenta a bagagem abaixo do sensor e o software que coleta os dados e realiza as medidas, este, implementado em Matlab 2020. 
 
-Para acessar o repositório do código do que controle o sensor [clique aqui](https://github.com/Vitor0534/Get_obj_dimensions_Kinect/tree/feat_Interface)
+Para acessar o repositório do código do que controla o sensor [clique aqui](https://github.com/Vitor0534/Get_obj_dimensions_Kinect/tree/feat_Interface)
+
+### Como executar o sistema?
+
+Existem duas possibilidades, sendo elas:
+
+* <b>Execução parcial:</b> o sistema foi preparado para permitir execução separada dos módulos, permitindo reutilização da esteira e realização de testes. Para tanto, basta gravar o código em questão no Arduíno e utilizar os controles via botões ou comandos via porta serial (é possível até mesmo testá-lo sem a presença da estrutura da esteira)
+* <b>Execução completa:</b> para que o sistema funcione por completo, o Arduíno deve estar integrado ao sistema principal. Logo, é necessário realizar a gravação do Arduíno com o presente código, montar na estrutura da esteira e conectar o mesmo ao usb da máquina que está executando o código em Matlab.
+
+### Esquema do circuito
+
+O circuito da aplicação foi simulado utilizando o [Proteus](https://www.labcenter.com/). O arquivo-fonte da simulação pode ser acessado [clicando aqui](./Resources/prototype circuit simulation), a imagem a seguir é um print do esquema:
+
+![CircuitSchema](./Resources/CircuitSchema.png)
+
+
+### Protótipo da esteira completo
+
+A seguinte imagem mostra a estrutura completa apenas da esteira, é possível notar a presença no sensor kinect v2 na haste de fixação.
+
+![prototipoEsteira](./Resources/prototipoEsteiraV5_.png)
 
 
 ### Funcionalidades
@@ -23,7 +41,7 @@ Para acessar o repositório do código do que controle o sensor [clique aqui](ht
 		* Ex. >> 'v,150';
 	* Comando 'h': altera o sentido de giro para horário;
 	* Comando 'a': altera o sentido de giro para anti horário;
-	* Comando 'c,razao': altera a razão de decremento/incremento do PWM. Quanto mais alto, maior a reação do controlador feedback as alterações e menor a precisão para velocidade alvo. A razão precisa ser multiplo de 255 com conta dos limites do pwm:
+	* Comando 'c,razao': altera a razão de decremento/incremento do PWM. Quanto mais alto, maior a reação do controlador feedback as alterações e menor a precisão para velocidade alvo. A razão precisa ser múltiplo de 255 por conta dos limites do pwm:
 		* Ex. >>"C,15"
 	* Comando 'm,RPMmaximo': altera o rpm máximo da esteira e recalcula o rpm alvo.
 
@@ -46,4 +64,3 @@ Ainda que seja possível configurar qualquer RPM, existem 5 opções default, a 
 - Velocidade 3 = 153 pwm  | 163 RPM
 - Velocidade 4 = 204 pwm  | 254 RPM
 - Velocidade 5 = 255 pwm  | 318 RPM
-
