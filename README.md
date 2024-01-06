@@ -58,6 +58,7 @@ A seguinte imagem mostra a estrutura completa apenas da esteira, é possível no
 
 
 **As 5 principais opções de velocidade e seus valores de RPM**
+
 Ainda que seja possível configurar qualquer RPM, existem 5 opções default, a seguir as velocidades e seus respectivos valores de RPM:
 - Velocidade 1 = 51  pwm  | 64  RPM
 - Velocidade 2 = 102 pwm  | 127 RPM
