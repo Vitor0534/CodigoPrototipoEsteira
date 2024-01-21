@@ -47,9 +47,9 @@ A seguinte imagem mostra a estrutura completa apenas da esteira, é possível no
 
 **Quanto a captura do RPM via encoder:**
 
-Para capturar o sinal dos pulsos que permitem o cálculo do RPM da esteira, foi utilizado um sensor [encoder](https://deepbluembedded.com/arduino-rpm-sensor-motor-rpm-meter-counter-encoder/).  Tal sensor é capaz de perceber a presença ou não de um sinal infravermelho e retornar essa informação ao Arduíno.
+Para capturar o sinal dos pulsos que permitem o cálculo do RPM, foi utilizado um sensor [encoder](https://deepbluembedded.com/arduino-rpm-sensor-motor-rpm-meter-counter-encoder/).  Tal sensor é capaz de "perceber" a presença ou não de um sinal infravermelho e retornar essa informação ao Arduíno.
 
-De modo a permitir a leitura do sinal, por ser preciso, foi feita a adaptação de um disco de HD acoplando-o na pólia da esteira, este, contem as janelas de pulso. No total, foram feitas 8 janelas igualmente espaçadas, que representam uma volta de 360° do disco. Por fim, o encoder foi fixado na estrutura, a Figura abaixo ilustra o resultado:
+De modo a permitir a leitura do sinal, por ser preciso, foi feita a adaptação de um disco de HD acoplando-o na pólia da esteira, este, contem as janelas de pulso. No total, foram feitas 8 janelas igualmente espaçadas que representam uma volta de 360° do disco. Por fim, o encoder foi fixado na estrutura, a imagem abaixo ilustra o resultado:
 
 ![roda_com_encoder](./Resources/roda_com_encoder.png)
 
