@@ -19,7 +19,7 @@ Existem duas possibilidades, sendo elas:
 
 ### Esquema do circuito
 
-O circuito da aplicação foi simulado utilizando o [Proteus](https://www.labcenter.com/). O arquivo-fonte da simulação pode ser acessado [clicando aqui](./Resources/prototype circuit simulation), a imagem a seguir é um print do esquema:
+O circuito da aplicação foi simulado utilizando o [Proteus](https://www.labcenter.com/). O arquivo-fonte da simulação pode ser acessado [clicando aqui](./Resources/prototype_circuit_simulation), a imagem a seguir é um print do esquema:
 
 ![CircuitSchema](./Resources/CircuitSchema.png)
 
@@ -45,6 +45,15 @@ A seguinte imagem mostra a estrutura completa apenas da esteira, é possível no
 		* Ex. >>"C,15"
 	* Comando 'm,RPMmaximo': altera o rpm máximo da esteira e recalcula o rpm alvo.
 
+**Quanto a captura do RPM via encoder:**
+
+Para capturar o sinal dos pulsos que permitem o cálculo do RPM da esteira, foi utilizado um sensor [encoder](https://deepbluembedded.com/arduino-rpm-sensor-motor-rpm-meter-counter-encoder/).  Tal sensor é capaz de perceber a presença ou não de um sinal infravermelho e retornar essa informação ao Arduíno.
+
+De modo a permitir a leitura do sinal, por ser preciso, foi feita a adaptação de um disco de HD acoplando-o na pólia da esteira, este, contem as janelas de pulso. No total, foram feitas 8 janelas igualmente espaçadas, que representam uma volta de 360° do disco. Por fim, o encoder foi fixado na estrutura, a Figura abaixo ilustra o resultado:
+
+![roda_com_encoder](./Resources/roda_com_encoder.png)
+
+
 
 **Quanto aos cálculos para controle do RPM:**
 
@@ -65,3 +74,5 @@ Ainda que seja possível configurar qualquer RPM, existem 5 opções default, a 
 - Velocidade 3 = 153 pwm  | 163 RPM
 - Velocidade 4 = 204 pwm  | 254 RPM
 - Velocidade 5 = 255 pwm  | 318 RPM
+
+
